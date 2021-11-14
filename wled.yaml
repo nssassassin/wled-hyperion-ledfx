@@ -4,43 +4,43 @@ automation:
   description: Keeps our input helper values up-to-date in case WLED is changed outside of HA.
   trigger:
   - platform: state
-    entity_id: light.wled_tv
+    entity_id: light.wled
   condition: []
   action:
   - choose:
       - conditions:
           - condition: template
             value_template: >-
-              {{ state_attr('light.wled_tv', 'intensity') !=
+              {{ state_attr('light.wled', 'intensity') !=
               states('input_number.wled_intensity') | int }}
         sequence:
           - service: input_number.set_value
             data:
-              value: "{{ state_attr('light.wled_tv', 'intensity') }}"
+              value: "{{ state_attr('light.wled', 'intensity') }}"
               entity_id: input_number.wled_intensity
     default: []
   - choose:
       - conditions:
           - condition: template
             value_template: >-
-              {{ state_attr('light.wled_tv', 'speed') !=
+              {{ state_attr('light.wled', 'speed') !=
               states('input_number.wled_speed') | int }}
         sequence:
           - service: input_number.set_value
             data:
-              value: "{{ state_attr('light.wled_tv', 'speed') }}"
+              value: "{{ state_attr('light.wled', 'speed') }}"
               entity_id: input_number.wled_speed
     default: []
   - choose:
       - conditions:
           - condition: template
             value_template: >-
-              {{ state_attr('light.wled_tv', 'effect') !=
+              {{ state_attr('light.wled', 'effect') !=
               states('input_select.wled_effect') }}
         sequence:
           - service: input_select.select_option
             data:
-              option: "{{ state_attr('light.wled_tv', 'effect') }}"
+              option: "{{ state_attr('light.wled', 'effect') }}"
               entity_id: input_select.wled_effect
     default: []
   - choose:
